@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results for "{{ query }}"</h1>
+    <ul>
+        {% for result in results %}
+            <li>
+                {{ result[0] }} - Similarity: {{ result[1] }}
+                <form method="POST" action="{{ url_for('feedback') }}">
+                    <input type="hidden" name="filename" value="{{ result[0] }}">
+                    <input type="hidden" name="feedback" value="1">
+                    <button type="submit">👍</button>
+                </form>
+                <form method="POST" action="{{ url_for('feedback') }}">
+                    <input type="hidden" name="filename" value="{{ result[0] }}">
+                    <input type="hidden" name="feedback" value="-1">
+                    <button type="submit">👎</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/search">Back to Search</a>
+</body>
+</html>
